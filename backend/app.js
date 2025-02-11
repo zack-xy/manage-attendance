@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 let cors = require('cors');
 let jwt = require('jsonwebtoken');
-let secret = 'imooc';
+let secret = 'zackzheng';
 
 var usersRouter = require('./routes/users');
 var signsRouter = require('./routes/signs');

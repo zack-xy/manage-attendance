@@ -4,7 +4,7 @@ let NewModel = require('../model/news');
 let SignModel = require('../model/signs');
 let CheckModel = require('../model/checks');
 let { toZero, toDays } = require('../utils/common');
-let secret = 'imooc';
+let secret = 'zackzheng';
 
 let login = (req, res, next) => {
   if(!req.body.email || !req.body.pass){
@@ -70,7 +70,7 @@ let register = async (req, res, next) => {
   ])
   await UserModel.insertMany([{
     "_id" : "62632f3f674b1e20c841aae2",
-    "email" : "huangrong@imooc.com",
+    "email" : "huangrong@gmail.com",
     "name" : "黄蓉",
     "pass" : "huangrong",
     "head" : "http://localhost:3000/uploads/62632f3f674b1e20c841aae2.png",
@@ -90,7 +90,7 @@ let register = async (req, res, next) => {
   },
   {
     "_id" : "626c7236e0c7edf6ce507708",
-    "email" : "hongqigong@imooc.com",
+    "email" : "hongqigong@gmail.com",
     "name" : "洪七公",
     "pass" : "hongqigong",
     "head" : "http://localhost:3000/uploads/626c7236e0c7edf6ce507708.png",
