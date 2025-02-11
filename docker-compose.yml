@@ -1,0 +1,12 @@
+version: '3'
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:5.0.11-ubuntu2004
+    container_name: docker-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    volumes:
+      - /Users/zhengxiyun/Zack/codes/DB/mongodb5.0.11:/data/db
