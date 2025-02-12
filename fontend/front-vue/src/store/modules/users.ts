@@ -3,14 +3,37 @@ import type { State } from '../index';
 import http from '@/utils/http';
 import type { Data } from '@/utils/http';
 
-export interface UsersState {}
+interface Infos {
+  [index: string]: unknown
+}
 
-const state: UsersState = {}
+export interface UsersState {
+  token: string
+  infos: Infos
+}
 
-const mutations: MutationTree<UsersState> = {}
+const state: UsersState = {
+  token: '',
+  infos: {}
+}
+
+const mutations: MutationTree<UsersState> = {
+  updateToken(state, payload) {
+    state.token = payload
+  },
+  updateInfos(state, payload) {
+    state.infos = payload
+  },
+  clearToken(state) {
+    state.token = ''
+  }
+}
 const actions: ActionTree<UsersState, State> = {
-  login(store, payload) {
+  login(context, payload) {
     return http.post('/users/login', payload)
+  },
+  infos() {
+    return http.get('/users/infos')
   }
 }
 const getters: GetterTree<UsersState, State> = {}

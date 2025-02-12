@@ -1,4 +1,5 @@
 import { createStore, useStore as baseUseStore } from 'vuex'
+import VuexPersistence from 'vuex-persist';
 import type { Store } from 'vuex'
 import users from './modules/users'
 import checks from './modules/checks'
@@ -21,6 +22,11 @@ export interface StateAll extends State {
   signs: SignsState
 }
 
+const vuexLocal = new VuexPersistence<State>({
+  storage: window.localStorage,
+  reducer: (state) => ({ users: { token: (state as StateAll).users.token } })
+})
+
 export function useStore() {
   return baseUseStore(key)
 }
@@ -41,5 +47,6 @@ export default createStore({
     checks,
     signs,
     news
-  }
+  },
+  plugins: [vuexLocal.plugin]
 })
