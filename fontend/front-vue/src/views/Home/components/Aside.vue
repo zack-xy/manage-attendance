@@ -1,6 +1,6 @@
 <template>
   <el-menu
-    :default-active="route.fullPath"
+    :default-active="route.path"
     router
   >
     <el-sub-menu v-for="item in menus" :key="item.path" :index="item.path">
