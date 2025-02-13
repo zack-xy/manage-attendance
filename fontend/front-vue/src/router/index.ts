@@ -94,6 +94,21 @@ const routes: Array<RouteRecordRaw> = [
           icon: 'document-add',
           auth: true
         },
+        beforeEnter(to, from, next) {
+          const usersInfos = (store.state as StateAll).users.infos
+          const checksApplyList = (store.state as StateAll).checks.applyList
+
+          if(_.isEmpty(checksApplyList)) {
+            store.dispatch('checks/getApply', { applicantid: usersInfos._id }).then(res => {
+              if(res.data.errcode === 0) {
+                store.commit('checks/updateApplyList', res.data.rets)
+                next()
+              }
+            })
+          } else {
+            next()
+          }
+        }
       },
       {
         path: 'check',

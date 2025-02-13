@@ -1,12 +1,32 @@
 import type { ActionTree, GetterTree, MutationTree } from "vuex"
 import type { State } from '../index';
+import http from "@/utils/http";
 
-export interface ChecksState {}
+interface Infos {
+   [index: string]: unknown
+}
 
-const state: ChecksState = {}
+export interface ChecksState {
+  applyList: Infos[]
+}
 
-const mutations: MutationTree<ChecksState> = {}
-const actions: ActionTree<ChecksState, State> = {}
+const state: ChecksState = {
+  applyList: []
+}
+
+const mutations: MutationTree<ChecksState> = {
+  updateApplyList(state, payload) {
+    state.applyList = payload
+  }
+}
+const actions: ActionTree<ChecksState, State> = {
+  getApply(context, payload) {
+    return http.get('/checks/apply', payload)
+  },
+  postApply(context, payload) {
+    return http.post('/checks/apply', payload)
+  }
+}
 const getters: GetterTree<ChecksState, State> = {}
 
 export default {
