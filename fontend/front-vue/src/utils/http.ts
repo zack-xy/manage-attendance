@@ -3,6 +3,7 @@ import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 import store from '@/store';
 import type { StateAll } from '@/store';
 import { ElMessage } from 'element-plus';
+import router from '@/router';
 
 const instance = axios.create({
   baseURL: 'http://localhost:3000/',
@@ -25,6 +26,8 @@ instance.interceptors.response.use(res => {
     setTimeout(() => {
       window.location.replace('/login')
     }, 1000);
+  } else if(res.data.errmsg === 'error') {
+    router.push('/500')
   }
   return res;
 }, error => {

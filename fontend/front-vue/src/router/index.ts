@@ -9,6 +9,9 @@ const Sign = () => import('@/views/Sign/Sign.vue')
 const Apply = () => import('@/views/Apply/Apply.vue')
 const Check = () => import('@/views/Check/Check.vue')
 const Exception = () => import('@/views/Exception/Exception.vue')
+const NotAuth = () => import('@/views/403.vue')
+const NotFound = () => import('@/views/404.vue')
+const NotServer = () => import('@/views/500.vue')
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -183,6 +186,25 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'login',
     component: Login
+  },
+  {
+    path: '/403',
+    name: '403',
+    component: NotAuth
+  },
+  {
+    path: '/404',
+    name: '404',
+    component: NotFound
+  },
+  {
+    path: '/500',
+    name: '500',
+    component: NotServer
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404'
   }
 ]
 
@@ -199,7 +221,11 @@ router.beforeEach((to, from, next) => {
       store.dispatch('users/infos').then(res => {
         if(res.data.errcode === 0) {
           store.commit('users/updateInfos', res.data.infos)
-          next()
+          if (res.data.infos.permission.includes(to.name)) {
+            next()
+          } else {
+            next('/403')
+          }
         }
       })
     } else {
