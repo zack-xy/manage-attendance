@@ -25,8 +25,8 @@
       <el-table-column prop="note" label="备注"></el-table-column>
       <el-table-column label="操作" width="180">
         <template #default="scope">
-          <el-button type="success" icon="check" size="small" circle @click="handlePutApply(scope.row._id, '已通过')"></el-button>
-          <el-button type="danger" icon="close" size="small" circle @click="handlePutApply(scope.row._id, '未通过')"></el-button>
+          <el-button type="success" icon="check" size="small" circle @click="handlePutApply(scope.row._id, '已通过', scope.row.applicantid)"></el-button>
+          <el-button type="danger" icon="close" size="small" circle @click="handlePutApply(scope.row._id, '未通过', scope.row.applicantid)"></el-button>
         </template>
       </el-table-column>
       <el-table-column prop="state" label="状态" width="180"></el-table-column>
@@ -63,7 +63,7 @@ const handleChange = (value: number) => {
   pageCurrent.value = value
 }
 
-const handlePutApply = (_id: string, state: '已通过' | '未通过') => {
+const handlePutApply = (_id: string, state: '已通过' | '未通过', applicantid: string) => {
   store.dispatch('checks/putApply',  {_id, state}).then(res => {
     if(res.data.errcode === 0) {
       store.dispatch('checks/getApply', { approverid: usersInfos.value._id }).then(res => {
@@ -71,6 +71,7 @@ const handlePutApply = (_id: string, state: '已通过' | '未通过') => {
           store.commit('checks/updateCheckList', res.data.rets)
         }
       })
+      store.dispatch('news/putRemind', { userid: applicantid, applicant: true })
       ElMessage.success('审批成功')
     }
   })
