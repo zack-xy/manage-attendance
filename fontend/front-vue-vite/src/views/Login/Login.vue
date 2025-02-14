@@ -9,7 +9,7 @@
       <span class="header-title">在线考勤系统</span>
     </div>
     <div class="desc">
-      零基础从入门到进阶，系统掌握前端三大热门技术(Vue、React、TypeScript)
+      vue3 + vite +vue-router + vuex + vuex-persist + lodash + elementPlus 
     </div>
     <el-form
       ref="ruleFormRef"
