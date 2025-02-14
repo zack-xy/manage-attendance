@@ -68,20 +68,28 @@ const routes: Array<RouteRecordRaw> = [
           icon: 'warning',
           auth: true
         },
-        beforeEnter(to, from, next) {
+        async beforeEnter(to, from, next) {
           const usersInfos = (store.state as StateAll).users.infos
           const signsInfos = (store.state as StateAll).signs.infos
+          const checksApplyList = (store.state as StateAll).checks.applyList
 
           if(_.isEmpty(signsInfos)) {
-            store.dispatch('signs/getTime', { userid: usersInfos._id }).then(res => {
-              if(res.data.errcode === 0) {
-                store.commit('signs/updateInfos', res.data.infos)
-                next()
-              }
-            })
-          } else {
-            next()
+            const res = await store.dispatch('signs/getTime', { userid: usersInfos._id })
+            if(res.data.errcode === 0) {
+              store.commit('signs/updateInfos', res.data.infos)
+            } else {
+              return
+            }
           }
+          if(_.isEmpty(checksApplyList)) {
+            const res = await store.dispatch('checks/getApply', { applicantid: usersInfos._id })
+            if(res.data.errcode === 0) {
+              store.commit('checks/updateApplyList', res.data.rets)
+            } else {
+              return
+            }
+          } 
+          next()
         }
       },
       {
