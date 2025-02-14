@@ -128,6 +128,21 @@ const routes: Array<RouteRecordRaw> = [
           icon: 'finished',
           auth: true
         },
+        beforeEnter(to, from, next) {
+          const usersInfos = (store.state as StateAll).users.infos
+          const checksCheckList = (store.state as StateAll).checks.checkList
+
+          if(_.isEmpty(checksCheckList)) {
+            store.dispatch('checks/getApply', { approverid: usersInfos._id }).then(res => {
+              if(res.data.errcode === 0) {
+                store.commit('checks/updateCheckList', res.data.rets)
+                next()
+              }
+            })
+          } else {
+            next()
+          }
+        }
       }
     ]
   },

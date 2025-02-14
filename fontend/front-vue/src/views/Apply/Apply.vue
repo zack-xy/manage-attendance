@@ -27,7 +27,7 @@
       <el-table-column prop="approvername" label="审批人" width="180"></el-table-column>
       <el-table-column prop="state" label="状态" width="180"></el-table-column>
     </el-table>
-    <el-pagination background layout="prev, pager, next" :total="applyList.length" :page-size="pageSize" @current-change="handleChange"></el-pagination>
+    <el-pagination background layout="prev, pager, next, total" :total="applyList.length" :page-size="pageSize" @current-change="handleChange"></el-pagination>
   </div>
   <el-dialog
     v-model="dialogVisible"

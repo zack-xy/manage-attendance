@@ -7,16 +7,21 @@ interface Infos {
 }
 
 export interface ChecksState {
-  applyList: Infos[]
+  applyList: Infos[],
+  checkList: Infos[]
 }
 
 const state: ChecksState = {
-  applyList: []
+  applyList: [],
+  checkList: []
 }
 
 const mutations: MutationTree<ChecksState> = {
   updateApplyList(state, payload) {
     state.applyList = payload
+  },
+  updateCheckList(state, payload) {
+    state.checkList = payload
   }
 }
 const actions: ActionTree<ChecksState, State> = {
@@ -25,6 +30,9 @@ const actions: ActionTree<ChecksState, State> = {
   },
   postApply(context, payload) {
     return http.post('/checks/apply', payload)
+  },
+  putApply(context, payload) {
+    return http.put('/checks/apply', payload)
   }
 }
 const getters: GetterTree<ChecksState, State> = {}
