@@ -60,7 +60,7 @@ export default function Login() {
         <span className={styles['header-title']}>在线考勤系统</span>
       </div>
       <div className={styles.desc}>
-        零基础从入门到进阶，系统掌握前端三大热门技术(Vue、React、TypeScript)
+        React + typescript + react-redux + redux-persist
       </div>
       <Form
         name="basic"
