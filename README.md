@@ -15,3 +15,6 @@ docker启动mongodb
 + front-vue: vue cli版    
 + front-vue-vite: vue vite版      
 + front-react：react版     
+
+
+<img width="1348" alt="在线考勤系统" src="https://github.com/user-attachments/assets/8774afdd-c1ab-422a-a620-8091cc7a2d18" />
